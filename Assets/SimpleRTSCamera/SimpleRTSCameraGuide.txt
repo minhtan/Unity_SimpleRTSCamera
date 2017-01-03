@@ -1,0 +1,8 @@
+﻿Setup:
+* Attach ‘CameraController.cs’ to the camera that needs to be controlled.
+* Create a ‘ground’ layer, assign to ground object, which must have a collider. Set ‘ground’ layer to Ground Layer in CameraController script.
+* (optional) Create Empty object and attach “InputManger.cs” to it, assign input axis and mouse buttons
+        
+See ‘DemoRTSCamera’ scene for setups.
+
+Visit my website at https://tantanlamgame.wordpress.com/ to buy me a beer if you like my work
