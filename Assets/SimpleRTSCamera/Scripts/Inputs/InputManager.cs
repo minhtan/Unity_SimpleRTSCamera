@@ -33,7 +33,7 @@ public class InputManager : MonoBehaviour {
 	}
 
 	void Start (){
-		StartCoroutine (input.StartRecordingClick (CheckClick));
+//		StartCoroutine (input.StartRecordingClick (CheckClick));
 	}
 
 	void Update () {

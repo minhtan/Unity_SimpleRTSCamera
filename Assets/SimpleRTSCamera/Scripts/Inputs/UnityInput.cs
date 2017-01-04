@@ -81,7 +81,7 @@ public class UnityInput : IInput {
 		}
 
 		if (!string.IsNullOrEmpty(rotateXAxis) && Input.GetAxis (rotateXAxis) != 0) {
-			return Input.GetAxis (rotateXAxis);
+			return -Input.GetAxis (rotateXAxis);
 		}
 
 		if (mouseRotate >= 0 && Input.GetMouseButton (mouseRotate)) {

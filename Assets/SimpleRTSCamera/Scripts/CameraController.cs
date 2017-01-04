@@ -6,10 +6,10 @@ public class CameraController : MonoBehaviour {
 	public LayerMask groundLayer;
 	public float panSpeed = 1f; //in unity unit
 	public float rotateSpeed = 1f; //in degrees
-	[Tooltip("mininam camera's vertical angle")][Range(1, 90)]
+	[Tooltip("mininam camera's vertical angle")][Range(5, 85)]
 	public float minCamAngleX = 5f;
-	[Tooltip("maximum camera's vertical angle")][Range(1, 90)]
-	public float maxCamAngleX = 90f;
+	[Tooltip("maximum camera's vertical angle")][Range(5, 85)]
+	public float maxCamAngleX = 85f;
 
 	public float zoomSpeed = 1f; //in unity unit
 	[Tooltip("max zoom out height scale compare to init position")]
@@ -165,13 +165,11 @@ public class CameraController : MonoBehaviour {
 		if (Physics.Raycast (camera.position, camera.forward, out hit, Mathf.Infinity, groundLayer)) {
 			camera.RotateAround (hit.point, camera.right, angle * rotateSpeed);
 
-			Debug.Log (Vector3.Angle(camera.forward, Vector3.ProjectOnPlane(camera.forward, Vector3.up)) + " " + camera.localRotation.eulerAngles.x);
-
-//			if (!Physics.Raycast (camera.position, camera.forward, out hit, Mathf.Infinity, groundLayer) 
-//				|| camera.localRotation.eulerAngles.x < minCamAngleX 
-//				|| camera.localRotation.eulerAngles.x > maxCamAngleX) {
-//				camera.RotateAround (hit.point, camera.right, -angle * rotateSpeed);
-//			}
+			if (!Physics.Raycast (camera.position, camera.forward, out hit, Mathf.Infinity, groundLayer) 
+				|| camera.localRotation.eulerAngles.x < minCamAngleX 
+				|| camera.localRotation.eulerAngles.x > maxCamAngleX) {
+				camera.RotateAround (hit.point, camera.right, -angle * rotateSpeed);
+			}
 		}
 	}
 
