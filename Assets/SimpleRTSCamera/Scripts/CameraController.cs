@@ -3,21 +3,22 @@ using System.Collections;
 using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour {
+	public bool ShowDebug = true;
 	public LayerMask groundLayer;
+	[Header("Pan Settings")]
 	public float panSpeed = 1f; //in unity unit
+	[Header("Rotate Settings")]
 	public float rotateSpeed = 1f; //in degrees
 	[Tooltip("mininam camera's vertical angle")][Range(5, 85)]
-	public float minCamAngleX = 5f;
+	public float minCamVerticalAngle = 5f;
 	[Tooltip("maximum camera's vertical angle")][Range(5, 85)]
-	public float maxCamAngleX = 85f;
-
+	public float maxCamVerticalAngle = 85f;
+	[Header("Zoom Settings")]
 	public float zoomSpeed = 1f; //in unity unit
-	[Tooltip("max zoom out height scale compare to init position")]
-	public float maxCamHeightScale = 5f; //max zoom out height scale compare to init position
 	[Tooltip("max zoom in height scale compare to init position")]
-	public float minCamHeightScale = 0.2f; //max zoom in height scale compare to init position
-
-	public bool ShowDebug = true;
+	public float minCamZoomScale = 0.2f; //max zoom in height scale compare to init position
+	[Tooltip("max zoom out height scale compare to init position")]
+	public float maxCamZoomScale = 5f; //max zoom out height scale compare to init position
 
 	Transform camera;
 	float maxCamHeight;
@@ -39,8 +40,8 @@ public class CameraController : MonoBehaviour {
 		Messenger.AddListener<float> (Events.Input.ZOOM_CAM, ZoomCam);
 
 		//vars set up
-		maxCamHeight = camera.position.y * maxCamHeightScale;
-		minCamHeight = camera.position.y * minCamHeightScale;
+		maxCamHeight = camera.position.y * maxCamZoomScale;
+		minCamHeight = camera.position.y * minCamZoomScale;
 	}
 
 	void OnDestroy(){
@@ -166,8 +167,8 @@ public class CameraController : MonoBehaviour {
 			camera.RotateAround (hit.point, camera.right, angle * rotateSpeed);
 
 			if (!Physics.Raycast (camera.position, camera.forward, out hit, Mathf.Infinity, groundLayer) 
-				|| camera.localRotation.eulerAngles.x < minCamAngleX 
-				|| camera.localRotation.eulerAngles.x > maxCamAngleX) {
+				|| camera.localRotation.eulerAngles.x < minCamVerticalAngle 
+				|| camera.localRotation.eulerAngles.x > maxCamVerticalAngle) {
 				camera.RotateAround (hit.point, camera.right, -angle * rotateSpeed);
 			}
 		}
